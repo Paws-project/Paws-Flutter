@@ -1,0 +1,9 @@
+{
+    "errorLens.enabledDiagnosticLevels": [
+        "error",
+        "warning",
+        "info"
+        // Disabled, because of suggestions of ES6 standarts, will be fixed in future with babel
+        // "hint"
+    ]
+}
