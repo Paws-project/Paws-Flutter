@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paws/authentication.dart';
+import 'package:paws/components/buttons/OAuth.dart';
 
 import 'package:paws/components/forms/PrimaryButton.dart';
 import 'package:paws/components/forms/AuthTextField.dart';
@@ -18,7 +20,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    return _AuthScreen(
+    return AuthScaffold(
       form: [
         AuthTextField(
           label: "Email:",
@@ -64,7 +66,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
-    return _AuthScreen(
+    return AuthScaffold(
       form: [
         AuthTextField(
           label: "Email:",
@@ -82,16 +84,11 @@ class _SignInState extends State<SignIn> {
   }
 }
 
-class _AuthScreen extends StatefulWidget {
+class AuthScaffold extends StatelessWidget {
   final List<Widget> form;
 
-  _AuthScreen({@required this.form});
+  AuthScaffold({@required this.form});
 
-  @override
-  _AuthScreenState createState() => _AuthScreenState();
-}
-
-class _AuthScreenState extends State<_AuthScreen> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -107,7 +104,10 @@ class _AuthScreenState extends State<_AuthScreen> {
                   "assets/images/auth_logo.png",
                   height: screenSize.height * 0.4,
                 ),
-                ...widget.form,
+                GoogleAuth(
+                  onPressed: googleAuth,
+                ),
+                ...form,
               ],
             ),
           ),
@@ -116,5 +116,3 @@ class _AuthScreenState extends State<_AuthScreen> {
     );
   }
 }
-
-enum AuthMode { signin, signup }

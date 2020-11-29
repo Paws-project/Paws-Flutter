@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:paws/components/channels/authChannel.dart';
 import 'package:paws/screens/Auth.dart';
 import 'package:paws/screens/Main.dart';
 import 'package:paws/screens/AddPetScreen.dart';
@@ -10,9 +11,8 @@ void main() {
 
 class ThemeColors {
   static const lightCreme = Color(0xfffff2df);
-  static const middleCreme = Color(0xFFffedd4);
-  // TODO: darkCreme
-  static const darkCreme = Color(0);
+  static const middleCreme = Color(0xffffedd4);
+  static const darkCreme = Color(0xfff7e0be);
 
   static const darkGrey = Color(0xFF3E4551);
 }
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    AuthChannel.init();
     return MaterialApp(
         title: 'Paws',
         theme: ThemeData(
