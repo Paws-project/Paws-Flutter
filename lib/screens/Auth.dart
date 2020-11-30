@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:paws/authentication.dart';
 import 'package:paws/components/buttons/OAuth.dart';
@@ -105,7 +106,17 @@ class AuthScaffold extends StatelessWidget {
                   height: screenSize.height * 0.4,
                 ),
                 GoogleAuth(
-                  onPressed: googleAuth,
+                  onPressed: () {
+                    Platform.isIOS || Platform.isAndroid
+                        ? googleAuth()
+                        : showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title:
+                                  Text("Not yet available on this platform :("),
+                            ),
+                          );
+                  },
                 ),
                 ...form,
               ],
