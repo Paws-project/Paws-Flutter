@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:paws/components/channels/authChannel.dart';
+import 'package:paws/providers/Pets.dart';
 import 'package:paws/screens/Auth.dart';
 import 'package:paws/screens/Main.dart';
-import 'package:paws/screens/AddPetScreen.dart';
+import 'package:paws/screens/pet/PetAddForm.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class ThemeColors {
-  static const lightCreme = Color(0xfffff2df);
-  static const middleCreme = Color(0xffffedd4);
-  static const darkCreme = Color(0xfff7e0be);
+  static const creme1 = Color(0xfffff2df);
+  static const creme2 = Color(0xffffedd4);
+  static const creme3 = Color(0xfff7e0be);
+  static const creme10 = Color(0xffc4b59d);
 
   static const darkGrey = Color(0xFF3E4551);
 }
@@ -21,16 +23,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    AuthChannel.init();
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Pets>(
+          create: (context) => Pets(),
+        )
+      ],
+      child: MaterialApp(
         title: 'Paws',
+
+        // Routing
+        routes: {
+          // Main
+          Main.routeName: (ctx) => Main(),
+          // Authentication
+          SignUp.routeName: (ctx) => SignUp(),
+          SignIn.routeName: (ctx) => SignIn(),
+          // Pets
+          PetAddForm.routeName: (ctx) => PetAddForm(),
+        },
+
+        // Theme
         theme: ThemeData(
           // Global
           brightness: Brightness.light,
-          primaryColor: ThemeColors.lightCreme,
-          backgroundColor: ThemeColors.middleCreme,
+          primaryColor: ThemeColors.creme1,
+          backgroundColor: ThemeColors.creme2,
           scaffoldBackgroundColor: Color(0xfffff2df),
+
           visualDensity: VisualDensity.adaptivePlatformDensity,
+
           // Icon-related
           iconTheme: IconThemeData(
             color: ThemeColors.darkGrey,
@@ -40,7 +62,6 @@ class MyApp extends StatelessWidget {
           ),
 
           // Input-related
-          // Removed deprecated cursorColor attribute
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: Colors.amber[600],
           ),
@@ -60,15 +81,11 @@ class MyApp extends StatelessWidget {
               color: ThemeColors.darkGrey,
             ),
           ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: ThemeColors.darkGrey,
+          ),
         ),
-        routes: {
-          // Main
-          Main.routeName: (ctx) => Main(),
-          // Authentication
-          SignUp.routeName: (ctx) => SignUp(),
-          SignIn.routeName: (ctx) => SignIn(),
-          // Pets
-          AddPetScreen.routeName: (ctx) => AddPetScreen(),
-        });
+      ),
+    );
   }
 }

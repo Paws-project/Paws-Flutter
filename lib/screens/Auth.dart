@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:paws/authentication.dart';
-import 'package:paws/components/buttons/OAuth.dart';
+import 'package:paws/components/forms/buttons/OAuth.dart';
 
-import 'package:paws/components/forms/PrimaryButton.dart';
-import 'package:paws/components/forms/AuthTextField.dart';
+import 'package:paws/components/forms/buttons/PrimaryButton.dart';
+import 'package:paws/components/forms/fields/AuthTextField.dart';
 
 class SignUp extends StatefulWidget {
   static final String routeName = "/signup";
